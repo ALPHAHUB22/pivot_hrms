@@ -40,6 +40,11 @@ const tabItems = [
 		route: "/home",
 	},
 	{
+		icon: SalaryIcon,
+		title: "Inventory",
+		route: "/dashboard/inventory",
+	},
+	{
 		icon: LeaveIcon,
 		title: "Leaves",
 		route: "/dashboard/leaves",
@@ -49,10 +54,11 @@ const tabItems = [
 		title: "Expenses",
 		route: "/dashboard/expense-claims",
 	},
-	{
-		icon: SalaryIcon,
-		title: "Salary",
-		route: "/dashboard/salary-slips",
-	},
+	// {
+	// 	icon: SalaryIcon,
+	// 	title: "Salary",
+	// 	route: "/dashboard/salary-slips",
+	// },
+	
 ]
 </script>
