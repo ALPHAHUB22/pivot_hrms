@@ -232,8 +232,8 @@ function setHalfDayDateRange() {
 	const half_day_date = formFields.data.find(
 		(field) => field.fieldname === "half_day_date"
 	)
-	half_day_date.minDate = leaveApplication.value.from_date
-	half_day_date.maxDate = leaveApplication.value.to_date
+	// half_day_date.minDate = leaveApplication.value.from_date
+	// half_day_date.maxDate = leaveApplication.value.to_date
 }
 
 function setLeaveApprovers(data) {

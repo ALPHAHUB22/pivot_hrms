@@ -42,7 +42,7 @@
 	>
 		<RequestActionSheet
 			:fields="
-				selectedRequest.doctype === 'Leave Application'
+				selectedRequest.doctype === 'Item'
 					? LEAVE_FIELDS
 					: EXPENSE_CLAIM_FIELDS
 			"

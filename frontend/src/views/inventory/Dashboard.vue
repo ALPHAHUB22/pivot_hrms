@@ -25,7 +25,7 @@
 						<RequestList
 							:component="markRaw(ExistingItem)"
 							:items="itemList.data"
-							:addListButton="false"
+							:addListButton="true"
 							listButtonRoute="ItemListView"
 						/>
 					</div>

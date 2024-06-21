@@ -134,6 +134,7 @@ import CustomIonModal from "@/components/CustomIonModal.vue"
 
 import useWorkflow from "@/composables/workflow"
 import { useListUpdate } from "@/composables/realtime"
+import ExistingItem from "./ExistingItem.vue"
 
 const props = defineProps({
 	doctype: {
@@ -163,9 +164,10 @@ const props = defineProps({
 })
 
 const listItemComponent = {
-	"Leave Application": markRaw(LeaveRequestItem),
-	"Expense Claim": markRaw(ExpenseClaimItem),
-	"Employee Advance": markRaw(EmployeeAdvanceItem),
+	// "Leave Application": markRaw(LeaveRequestItem),
+	// "Expense Claim": markRaw(ExpenseClaimItem),
+	// "Employee Advance": markRaw(EmployeeAdvanceItem),
+	"Item": markRaw(ExistingItem)
 }
 
 const router = useRouter()
@@ -198,17 +200,17 @@ const formViewRoute = computed(() => {
 })
 
 const detailViewRoute = computed(() => {
-	return `${props.doctype.replace(/\s+/g, "")}DetailView`
+	return "ItemDetailView"
 })
 
 const defaultFilters = computed(() => {
 	const filters = []
 
-	if (isTeamRequest.value) {
-		filters.push([props.doctype, "employee", "!=", employee.data.name])
-	} else {
-		filters.push([props.doctype, "employee", "=", employee.data.name])
-	}
+	// if (isTeamRequest.value) {
+	// 	filters.push([props.doctype, "employee", "!=", employee.data.name])
+	// } else {
+	// 	filters.push([props.doctype, "employee", "=", employee.data.name])
+	// }
 
 	return filters
 })
@@ -222,6 +224,7 @@ const documents = createResource({
 		}
 	},
 	transform(data) {
+		console.log(data)
 		if (data.length === 0) {
 			return []
 		}

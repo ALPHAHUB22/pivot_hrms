@@ -4,7 +4,7 @@
 			doctype="Item"
 			pageTitle="Item List"
 			:tabButtons="TAB_BUTTONS"
-			:fields="LEAVE_FIELDS"
+			:fields="ITEM_FIELDS"
 			:filterConfig="FILTER_CONFIG"
 		/>
 	</ion-page>
@@ -15,12 +15,15 @@ import { IonPage } from "@ionic/vue"
 import ListView from "@/components/ListView.vue"
 
 const TAB_BUTTONS = ["Item Details"]
-const LEAVE_FIELDS = [
+const ITEM_FIELDS = [
 	"name",
 	"item_code",
 	"item_group",
 	"stock_uom",
 	"opening_stock",
+	"custom_building",
+	"custom_floor",
+	"description"
 ]
 const FILTER_CONFIG = [
 	{
