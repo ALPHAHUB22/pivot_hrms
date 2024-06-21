@@ -41,11 +41,10 @@ const formFields = createResource({
 	url: "hrms.inventory.api.get_doctype_fields",
 	params: { 
         doctype: "Item", 
-        field_list: ["item_code", "stock_uom", "item_group", "opening_stock"]
+        field_list: ["item_code", "stock_uom", "item_group", "opening_stock",  "custom_building", "custom_floor", "description"]
     },
 	transform(data) {
 		let fields = getFilteredFields(data)
-        console.log(fields)
 
 		return fields.map((field) => {
 			// if (field.fieldname === "half_day_date") field.hidden = true

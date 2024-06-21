@@ -25,7 +25,7 @@
 					class="flex flex-row text-center items-center justify-between mb-1 px-3"
 				>
 					<span class="text-base text-gray-900 font-bold">
-						Install Frappe HR
+						Install Pivot
 					</span>
 					<span class="inline-flex items-baseline">
 						<FeatherIcon
