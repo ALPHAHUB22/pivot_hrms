@@ -1,53 +1,29 @@
 <template>
 	<div class="flex flex-col h-full w-full" v-if="isFormReady">
 		<div class="w-full h-full bg-white sm:w-96 flex flex-col">
-			<header
-				class="flex flex-row bg-white shadow-sm py-4 px-3 items-center sticky top-0 z-[1000]"
-			>
-				<Button
-					variant="ghost"
-					class="!pl-0 hover:bg-white"
-					@click="router.back()"
-				>
+			<header class="flex flex-row bg-white shadow-sm py-4 px-3 items-center sticky top-0 z-[1000]">
+				<Button variant="ghost" class="!pl-0 hover:bg-white" @click="router.back()">
 					<FeatherIcon name="chevron-left" class="h-5 w-5" />
 				</Button>
-				<div
-					v-if="id"
-					class="flex flex-row items-center gap-2 overflow-hidden grow"
-				>
-					<h2
-						class="text-xl font-semibold text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis"
-					>
+				<div v-if="id" class="flex flex-row items-center gap-2 overflow-hidden grow">
+					<h2 class="text-xl font-semibold text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis">
 						{{ doctype }}
 					</h2>
-					<Badge
-						:label="id"
-						class="whitespace-nowrap text-[8px]"
-						variant="outline"
-					/>
-					<Badge
-						v-if="status"
-						:label="status"
-						:theme="statusColor"
-						class="whitespace-nowrap text-[8px]"
-					/>
+					<Badge :label="id" class="whitespace-nowrap text-[8px]" variant="outline" />
+					<Badge v-if="status" :label="status" :theme="statusColor" class="whitespace-nowrap text-[8px]" />
 
-					<Dropdown
-						class="ml-auto"
-						:options="[
-							{
-								label: 'Delete',
-								condition: showDeleteButton,
-								onClick: () => (showDeleteDialog = true),
-							},
-							{ label: 'Reload', onClick: () => reloadDoc() },
-						]"
-						:button="{
+					<Dropdown class="ml-auto" :options="[
+						{
+							label: 'Delete',
+							condition: showDeleteButton,
+							onClick: () => (showDeleteDialog = true),
+						},
+						{ label: 'Reload', onClick: () => reloadDoc() },
+					]" :button="{
 							label: 'Menu',
 							icon: 'more-horizontal',
 							variant: 'ghost',
-						}"
-					/>
+						}" />
 				</div>
 				<h2 v-else class="text-2xl font-semibold text-gray-900">
 					{{ `New ${doctype}` }}
@@ -59,19 +35,15 @@
 				<!-- Tabs -->
 				<template v-if="tabbedView">
 					<div
-						class="px-4 sticky top-0 z-[100] bg-white text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700"
-					>
+						class="px-4 sticky top-0 z-[100] bg-white text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
 						<ul class="flex -mb-px overflow-auto hide-scrollbar">
 							<li class="mr-2 whitespace-nowrap" v-for="tab in tabs">
-								<button
-									@click="activeTab = tab.name"
-									class="inline-block py-4 px-2 border-b-2 border-transparent rounded-t-lg"
-									:class="[
+								<button @click="activeTab = tab.name"
+									class="inline-block py-4 px-2 border-b-2 border-transparent rounded-t-lg" :class="[
 										activeTab === tab.name
 											? '!text-gray-800 !border-gray-800'
 											: 'hover:text-gray-600 hover:border-gray-300',
-									]"
-								>
+									]">
 									{{ tab.name }}
 								</button>
 							</li>
@@ -79,134 +51,79 @@
 					</div>
 
 					<template v-for="(fieldList, tabName, index) in tabFields">
-						<div
-							v-show="tabName === activeTab"
-							class="flex flex-col space-y-4 p-4"
-						>
-							<template v-for="field in fieldList" :key="field.fieldname">
-								<slot
-									v-if="field.fieldtype == 'Table'"
-									:name="field.fieldname"
-									:isFormReadOnly="isFormReadOnly"
-								></slot>
+						<div v-show="tabName === activeTab" class="flex flex-col space-y-4 p-4">
+							<template v-for="field in fieldList" :key="field.fieldname" class="w-2/4">
+								<slot v-if="field.fieldtype == 'Table'" :name="field.fieldname"
+									:isFormReadOnly="isFormReadOnly"></slot>
 
-								<FormField
-									v-else
-									:fieldtype="field.fieldtype"
-									:fieldname="field.fieldname"
-									v-model="formModel[field.fieldname]"
-									:default="field.default"
-									:label="field.label"
-									:options="field.options"
-									:linkFilters="field.linkFilters"
-									:documentList="field.documentList"
-									:readOnly="isFieldReadOnly(field)"
-									:reqd="Boolean(field.reqd)"
-									:hidden="Boolean(field.hidden)"
-									:errorMessage="field.error_message"
-									:minDate="field.minDate"
-									:maxDate="field.maxDate"
-									:addSectionPadding="fieldList[0].name !== field.name"
-								/>
+								<FormField v-else :fieldtype="field.fieldtype" :fieldname="field.fieldname"
+									v-model="formModel[field.fieldname]" :default="field.default" :label="field.label"
+									:options="field.options" :linkFilters="field.linkFilters"
+									:documentList="field.documentList" :readOnly="isFieldReadOnly(field)"
+									:reqd="Boolean(field.reqd)" :hidden="Boolean(field.hidden)"
+									:errorMessage="field.error_message" :minDate="field.minDate"
+									:maxDate="field.maxDate" :addSectionPadding="fieldList[0].name !== field.name" />
 							</template>
 
 							<!-- Attachment upload -->
-							<div
-								class="flex flex-row gap-2 items-center justify-center p-5"
-								v-if="isFileUploading"
-							>
+							<div class="flex flex-row gap-2 items-center justify-center p-5" v-if="isFileUploading">
 								<LoadingIndicator class="w-3 h-3 text-gray-800" />
 								<span class="text-gray-900 text-sm">Uploading...</span>
 							</div>
 
-							<FileUploaderView
-								v-else-if="showAttachmentView && index === 0"
-								v-model="fileAttachments"
-								@handleFileSelect="handleFileSelect"
-								@handleFileDelete="handleFileDelete"
-							/>
+							<FileUploaderView v-else-if="showAttachmentView && index === 0" v-model="fileAttachments"
+								@handleFileSelect="handleFileSelect" @handleFileDelete="handleFileDelete" />
 						</div>
 					</template>
 				</template>
 
 				<div class="flex flex-col space-y-4 p-4" v-else>
-					<FormField
-						v-for="field in props.fields"
-						:key="field.name"
-						:fieldtype="field.fieldtype"
-						:fieldname="field.fieldname"
-						v-model="formModel[field.fieldname]"
-						:default="field.default"
-						:label="field.label"
-						:options="field.options"
-						:linkFilters="field.linkFilters"
-						:documentList="field.documentList"
-						:readOnly="isFieldReadOnly(field)"
-						:reqd="Boolean(field.reqd)"
-						:hidden="Boolean(field.hidden)"
-						:errorMessage="field.error_message"
-						:minDate="field.minDate"
-						:maxDate="field.maxDate"
-					/>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+							<!-- <div class="flex"> -->
+							<FormField v-for="field in props.fields" :key="field.name" :fieldtype="field.fieldtype"
+								:fieldname="field.fieldname" v-model="formModel[field.fieldname]"
+								:default="field.default" :label="field.label" :options="field.options"
+								:linkFilters="field.linkFilters" :documentList="field.documentList"
+								:readOnly="isFieldReadOnly(field)" :reqd="Boolean(field.reqd)"
+								:hidden="Boolean(field.hidden)" :errorMessage="field.error_message"
+								:minDate="field.minDate" :maxDate="field.maxDate" />
+						</div>
 
 					<!-- Attachment upload -->
-					<div
-						class="flex flex-row gap-2 items-center justify-center p-5"
-						v-if="isFileUploading"
-					>
+					<div class="flex flex-row gap-2 items-center justify-center p-5" v-if="isFileUploading">
 						<LoadingIndicator class="w-3 h-3 text-gray-800" />
 						<span class="text-gray-900 text-sm">Uploading...</span>
 					</div>
-					
-					<FileUploaderView
-						v-else-if="showAttachmentView"
-						v-model="fileAttachments"
-						@handleFileSelect="handleFileSelect"
-						@handleFileDelete="handleFileDelete"
-					/>
+
+					<FileUploaderView v-else-if="showAttachmentView" v-model="fileAttachments"
+						@handleFileSelect="handleFileSelect" @handleFileDelete="handleFileDelete" />
 				</div>
 			</div>
 
 			<!-- Form Primary/Secondary Button -->
 			<!-- custom form button eg: Download button in salary slips -->
-			<div
-				v-if="!showFormButton"
-				class="px-4 pt-4 pb-4 standalone:pb-safe-bottom sm:w-96 bg-white sticky bottom-0 w-full drop-shadow-xl z-40 border-t rounded-t-lg"
-			>
+			<div v-if="!showFormButton"
+				class="px-4 pt-4 pb-4 standalone:pb-safe-bottom sm:w-96 bg-white sticky bottom-0 w-full drop-shadow-xl z-40 border-t rounded-t-lg">
 				<slot name="formButton"></slot>
 			</div>
 
 			<!-- workflow actions -->
-			<WorkflowActionSheet
-				v-else-if="!isFormDirty && workflow?.hasWorkflow"
-				:doc="documentResource.doc"
-				:workflow="workflow"
-				@workflowApplied="reloadDoc()"
-			/>
+			<WorkflowActionSheet v-else-if="!isFormDirty && workflow?.hasWorkflow" :doc="documentResource.doc"
+				:workflow="workflow" @workflowApplied="reloadDoc()" />
 
 			<!-- save/submit/cancel -->
-			<div
-				v-else-if="isFormDirty || (!workflow?.hasWorkflow && formButton)"
-				class="px-4 pt-4 pb-4 standalone:pb-safe-bottom sm:w-96 bg-white sticky bottom-0 w-full drop-shadow-xl z-40 border-t rounded-t-lg"
-			>
-				<ErrorMessage
-					class="mb-2"
-					:message="
-						formErrorMessage ||
-						docList?.insert?.error ||
-						documentResource?.setValue?.error
-					"
-				/>
+			<div v-else-if="isFormDirty || (!workflow?.hasWorkflow && formButton)"
+				class="px-4 pt-4 pb-4 standalone:pb-safe-bottom sm:w-96 bg-white sticky bottom-0 w-full drop-shadow-xl z-40 border-t rounded-t-lg">
+				<ErrorMessage class="mb-2" :message="formErrorMessage ||
+					docList?.insert?.error ||
+					documentResource?.setValue?.error
+					" />
 
-				<Button
-					class="w-full rounded py-5 text-base disabled:bg-gray-700 disabled:text-white"
+				<Button class="w-full rounded py-5 text-base disabled:bg-gray-700 disabled:text-white"
 					:class="formButton === 'Cancel' ? 'shadow' : ''"
 					@click="formButton === 'Save' ? saveForm() : submitOrCancelForm()"
-					:variant="formButton === 'Cancel' ? 'subtle' : 'solid'"
-					:loading="
-						docList.insert.loading || documentResource?.setValue?.loading
-					"
-				>
+					:variant="formButton === 'Cancel' ? 'subtle' : 'solid'" :loading="docList.insert.loading || documentResource?.setValue?.loading
+						">
 					{{ formButton }}
 				</Button>
 			</div>
@@ -227,19 +144,10 @@
 		</template>
 		<template #actions>
 			<div class="flex flex-row gap-4">
-				<Button
-					variant="outline"
-					class="py-5 w-full"
-					@click="showDeleteDialog = false"
-				>
+				<Button variant="outline" class="py-5 w-full" @click="showDeleteDialog = false">
 					Cancel
 				</Button>
-				<Button
-					variant="solid"
-					theme="red"
-					@click="handleDocDelete"
-					class="py-5 w-full"
-				>
+				<Button variant="solid" theme="red" @click="handleDocDelete" class="py-5 w-full">
 					Delete
 				</Button>
 			</div>
@@ -259,18 +167,10 @@
 		</template>
 		<template #actions>
 			<div class="flex flex-row gap-4">
-				<Button
-					variant="outline"
-					class="py-5 w-full"
-					@click="showSubmitDialog = false"
-				>
+				<Button variant="outline" class="py-5 w-full" @click="showSubmitDialog = false">
 					No
 				</Button>
-				<Button
-					variant="solid"
-					@click="handleDocUpdate('submit')"
-					class="py-5 w-full"
-				>
+				<Button variant="solid" @click="handleDocUpdate('submit')" class="py-5 w-full">
 					Yes
 				</Button>
 			</div>
@@ -284,24 +184,15 @@
 		<template #body-content>
 			<p>
 				Permanently cancel {{ props.doctype }}
-				<span class="font-bold">{{ formModel.name }}</span
-				>?
+				<span class="font-bold">{{ formModel.name }}</span>?
 			</p>
 		</template>
 		<template #actions>
 			<div class="flex flex-row gap-4">
-				<Button
-					variant="outline"
-					class="py-5 w-full"
-					@click="showCancelDialog = false"
-				>
+				<Button variant="outline" class="py-5 w-full" @click="showCancelDialog = false">
 					No
 				</Button>
-				<Button
-					variant="solid"
-					@click="handleDocUpdate('cancel')"
-					class="py-5 w-full"
-				>
+				<Button variant="solid" @click="handleDocUpdate('cancel')" class="py-5 w-full">
 					Yes
 				</Button>
 			</div>
@@ -639,9 +530,8 @@ function validateMandatoryFields() {
 		.map((field) => field.label)
 
 	if (errorFields.length) {
-		formErrorMessage.value = `${errorFields.join(", ")} ${
-			errorFields.length > 1 ? "fields are mandatory" : "field is mandatory"
-		}`
+		formErrorMessage.value = `${errorFields.join(", ")} ${errorFields.length > 1 ? "fields are mandatory" : "field is mandatory"
+			}`
 		return false
 	} else {
 		formErrorMessage.value = ""

@@ -5,9 +5,9 @@
                 <div class="text-lg text-gray-800 font-bold">Pivot Inventory Management</div>
 
             </div>
-			<div class="flex flex-col items-center mt-7 mb-7 py-4">
+			<div class="flex flex-col items-center mb-7 py-4">
 
-				<div class="flex flex-col gap-7 mt-5 px-4 w-full">
+				<div class="flex flex-col gap-7 px-4 w-full">
 					<router-link
 						:to="{ name: 'ItemFormView' }"
 						v-slot="{ navigate }"
