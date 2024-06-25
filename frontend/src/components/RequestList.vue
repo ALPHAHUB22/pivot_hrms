@@ -43,7 +43,7 @@
 		<RequestActionSheet
 			:fields="
 				selectedRequest.doctype === 'Item'
-					? LEAVE_FIELDS
+					? ITEM_FIELDS
 					: EXPENSE_CLAIM_FIELDS
 			"
 			v-model="selectedRequest"
@@ -57,7 +57,7 @@ import { IonModal } from "@ionic/vue"
 import RequestActionSheet from "@/components/RequestActionSheet.vue"
 
 import {
-	LEAVE_FIELDS,
+	ITEM_FIELDS,
 	EXPENSE_CLAIM_FIELDS,
 } from "@/data/config/requestSummaryFields"
 
