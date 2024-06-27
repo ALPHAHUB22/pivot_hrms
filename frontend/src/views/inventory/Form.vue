@@ -41,7 +41,7 @@ const formFields = createResource({
 	url: "hrms.inventory.api.get_doctype_fields",
 	params: { 
         doctype: "Item", 
-        field_list: ["item_code", "stock_uom", "item_group", "opening_stock",  "custom_building", "custom_floor", "description"]
+        field_list: ["item_code", "stock_uom", "item_group", "custom_qty",  "custom_building", "custom_floor", "custom_depth", "custom_width", "custom_height", "custom_diameter", "description"]
     },
 	transform(data) {
 		let fields = getFilteredFields(data)
