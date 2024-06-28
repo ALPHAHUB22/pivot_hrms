@@ -223,6 +223,7 @@ import { FileAttachment, guessStatusColor } from "@/composables"
 import useWorkflow from "@/composables/workflow"
 import { getCompanyCurrency } from "@/data/currencies"
 import { formatCurrency } from "@/utils/formatters"
+import { itemList } from "@/data/inventory"
 
 const props = defineProps({
 	doctype: {
@@ -413,6 +414,7 @@ const docList = createListResource({
 				name: "InventoryDashboard"
 				// params: { id: data.name },
 			})
+			itemList.reload()
 		},
 		onError() {
 			toast({
@@ -563,7 +565,7 @@ async function handleDocUpdate(action) {
 		router.replace({
 			name: "InventoryDashboard"
 		})
-		// await window.location.reload()
+		itemList.reload()
 		resetForm()
 	}
 
