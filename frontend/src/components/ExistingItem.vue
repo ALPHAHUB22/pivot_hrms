@@ -9,10 +9,10 @@
 						{{ props.doc.item_code }}
 					</div>
 					<div class="text-xs font-normal text-gray-500">
-						<span>{{ props.doc.stock_uom }}</span>
+						<span>Qty</span>
 						<span class="whitespace-pre"> &middot; </span>
 						<span class="whitespace-nowrap">{{
-							`${props.doc.opening_stock}`
+							`${props.doc.custom_qty}`
 						}}</span>
 					</div>
 				</div>

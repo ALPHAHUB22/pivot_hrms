@@ -44,16 +44,16 @@ const tabItems = [
 		title: "Inventory",
 		route: "/dashboard/inventory",
 	},
-	{
-		icon: LeaveIcon,
-		title: "Leaves",
-		route: "/dashboard/leaves",
-	},
-	{
-		icon: ExpenseIcon,
-		title: "Expenses",
-		route: "/dashboard/expense-claims",
-	},
+	// {
+	// 	icon: LeaveIcon,
+	// 	title: "Leaves",
+	// 	route: "/dashboard/leaves",
+	// },
+	// {
+	// 	icon: ExpenseIcon,
+	// 	title: "Expenses",
+	// 	route: "/dashboard/expense-claims",
+	// },
 	// {
 	// 	icon: SalaryIcon,
 	// 	title: "Salary",

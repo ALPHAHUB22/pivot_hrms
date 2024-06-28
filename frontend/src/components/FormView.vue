@@ -553,6 +553,17 @@ async function handleDocUpdate(action) {
 
 		await documentResource.setValue.submit(params)
 		await documentResource.get.promise
+		toast({
+			title: "Success",
+			text: `${props.doctype} updated successfully!`,
+			icon: "check-circle",
+			position: "bottom-center",
+			iconClasses: "text-green-500",
+		})
+		router.replace({
+			name: "InventoryDashboard"
+		})
+		// await window.location.reload()
 		resetForm()
 	}
 

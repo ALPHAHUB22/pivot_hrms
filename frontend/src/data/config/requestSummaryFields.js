@@ -22,6 +22,26 @@ export const ITEM_FIELDS = [
 		label: "Floor",
 		fieldtype: "Data",
 	},
+	{
+		fieldname: "custom_depth",
+		label: "Depth (D)",
+		fieldtype: "Data",
+	},
+	{
+		fieldname: "custom_width",
+		label: "Width (W)",
+		fieldtype: "Data",
+	},
+	{
+		fieldname: "custom_height",
+		label: "Height (H)",
+		fieldtype: "Data",
+	},
+	{
+		fieldname: "custom_diameter",
+		label: "Diameter (DIA)",
+		fieldtype: "Data",
+	},
 ]
 
 export const EXPENSE_CLAIM_FIELDS = [
