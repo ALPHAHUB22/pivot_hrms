@@ -41,16 +41,30 @@ const formFields = createResource({
 	url: "hrms.inventory.api.get_doctype_fields",
 	params: { 
         doctype: "Item", 
-        field_list: ["item_code", "stock_uom", "item_group", "custom_qty",  "custom_building", "custom_floor", "custom_depth", "custom_width", "custom_height", "custom_diameter", "description"]
+        field_list: [
+			"item_code", "stock_uom", "item_group", "custom_qty", "custom_building", "custom_floor", 
+			"custom_depth", "custom_width", "custom_height", "custom_diameter", "description", "custom_tag", 
+			"custom_manufacturer", "custom_finish_spec", "custom_comments"
+		]
     },
 	transform(data) {
 		let fields = getFilteredFields(data)
 
 		return fields.map((field) => {
-			// if (field.fieldname === "half_day_date") field.hidden = true
 
-			// if (field.fieldname === "posting_date") field.default = today
-
+			const data = JSON.parse(sessionStorage.getItem('item_info'));
+			var item_group, building, floor, manufacturer = ""
+			if (data){
+				item_group = data.item_group
+				building = data.custom_building
+				floor =  data.custom_floor
+				manufacturer = data.custom_manufacturer
+			}
+			if (field.fieldname === "item_group") field.default = item_group
+			if (field.fieldname === "custom_building") field.default = building
+			if (field.fieldname === "custom_floor") field.default = floor
+			if (field.fieldname === "custom_manufacturer") field.default = manufacturer
+			console.log([field.fieldname, field.default])
 			return field
 		})
 	},

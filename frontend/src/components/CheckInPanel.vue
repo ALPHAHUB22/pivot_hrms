@@ -3,10 +3,10 @@
 		<h2 class="text-lg font-bold text-gray-900">Hey, {{ employee?.data?.first_name }} 👋</h2>
 
 		<template v-if="settings.data?.allow_employee_checkin_from_mobile_app">
-			<div class="font-medium text-sm text-gray-500 mt-1.5" v-if="lastLog">
+			<!-- <div class="font-medium text-sm text-gray-500 mt-1.5" v-if="lastLog">
 				Last {{ lastLogType }} was at {{ lastLogTime }}
-			</div>
-			<Button
+			</div> -->
+			<!-- <Button
 				class="mt-4 mb-1 drop-shadow-sm py-5 text-base"
 				id="open-checkin-modal"
 				@click="handleEmployeeCheckin"
@@ -18,7 +18,7 @@
 					/>
 				</template>
 				{{ nextAction.label }}
-			</Button>
+			</Button> -->
 		</template>
 
 		<div v-else class="font-medium text-sm text-gray-500 mt-1.5">

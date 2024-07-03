@@ -6,7 +6,13 @@ const routes = [
 	},
 	{
 		name: "ItemListView",
-		path: "/items",
+		path: "/items/",
+		component: () => import("@/views/inventory/List.vue"),
+	},
+	{
+		name: "ItemBuildingListView",
+		path: "/items/building/:filter",
+		props: true,
 		component: () => import("@/views/inventory/List.vue"),
 	},
 	{

@@ -407,8 +407,8 @@ const docList = createListResource({
 				position: "bottom-center",
 				iconClasses: "text-green-500",
 			})
+			sessionStorage.setItem('item_info', JSON.stringify(data));
 			await uploadAllAttachments(data.doctype, data.name, fileAttachments.value)
-
 			router.replace({
 				// name: `${props.doctype.replace(/\s+/g, "")}DetailView`,
 				name: "InventoryDashboard"
@@ -562,6 +562,7 @@ async function handleDocUpdate(action) {
 			position: "bottom-center",
 			iconClasses: "text-green-500",
 		})
+		sessionStorage.setItem('item_info', JSON.stringify(params));
 		router.replace({
 			name: "InventoryDashboard"
 		})

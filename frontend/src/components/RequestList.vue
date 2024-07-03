@@ -31,7 +31,7 @@
 			</Button>
 		</router-link>
 	</div>
-	<EmptyState message="You have no requests" v-else />
+	<EmptyState message="You have no items" v-else />
 
 	<ion-modal
 		ref="modal"

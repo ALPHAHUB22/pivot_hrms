@@ -161,6 +161,9 @@ const props = defineProps({
 		type: String,
 		required: true,
 	},
+	filter: {
+		type: String,
+	}
 })
 
 const listItemComponent = {
@@ -259,8 +262,12 @@ function initializeFilters() {
 			value: null,
 		}
 	})
-
-	appliedFilters.value = []
+	if (props.filter){
+		appliedFilters.value = [[props.doctype, 'custom_building', '=',props.filter]]
+	}
+	else{
+		appliedFilters.value = []
+	}
 }
 initializeFilters()
 
