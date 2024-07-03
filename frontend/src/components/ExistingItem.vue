@@ -2,18 +2,52 @@
 	<div class="flex flex-col w-full justify-center gap-2.5">
 		<div class="flex flex-row items-center justify-between">
 			<div class="flex flex-row items-start gap-3 grow">
-				<LeaveIcon class="h-5 w-5 text-gray-500" />
-				 <!-- <img src=props.doc. alt="image" class="h-5 w-5 text-gray-500"> -->
+				<!-- <LeaveIcon class="h-5 w-5 text-gray-500" /> -->
+				 <img v-bind:src="props.doc.image?props.doc.image: '/files/demo.jpg'" alt="image" class="h-20 w-20 text-gray-500">
 				<div class="flex flex-col items-start gap-1.5">
 					<div class="text-base font-normal text-gray-800">
 						{{ props.doc.item_code }}
 					</div>
-					<div class="text-xs font-normal text-gray-500">
-						<span>Qty</span>
-						<span class="whitespace-pre"> &middot; </span>
-						<span class="whitespace-nowrap">{{
-							`${props.doc.custom_qty}`
-						}}</span>
+					<div class="text-xs font-normal text-gray-500" style="display: flex;gap:15px;flex-wrap: wrap;">
+						<div v-if="props.doc.custom_manufacturer">
+							<span class="font-bold">Manufacturer</span>
+							<span class="whitespace-pre"> &middot; </span>
+							<span class="whitespace-nowrap">{{
+								`${props.doc.custom_manufacturer}`
+							}}</span>
+							<span class="px-2">|</span>
+						</div>
+						<div v-if="props.doc.custom_building">
+							<span class="font-bold">Building</span>
+							<span class="whitespace-pre"> &middot; </span>
+							<span class="whitespace-nowrap">{{
+								`${props.doc.custom_building}`
+							}}</span>
+							<span class="px-2">|</span>
+						</div>
+						<div v-if="props.doc.custom_floor">
+							<span class="font-bold">Floor</span>
+							<span class="whitespace-pre"> &middot; </span>
+							<span class="whitespace-nowrap">{{
+								`${props.doc.custom_floor}`
+							}}</span>
+							<span class="px-2">|</span>
+						</div>
+						<div v-if="props.doc.custom_height">
+							<span class="font-bold">Height</span>
+							<span class="whitespace-pre"> &middot; </span>
+							<span class="whitespace-nowrap">{{
+								`${props.doc.custom_height}`
+							}}</span>
+							<span class="px-2">|</span>
+						</div>
+						<div>
+							<span class="font-bold">Qty</span>
+							<span class="whitespace-pre"> &middot; </span>
+							<span class="whitespace-nowrap">{{
+								`${props.doc.custom_qty}`
+							}}</span>
+						</div>
 					</div>
 				</div>
 			</div>

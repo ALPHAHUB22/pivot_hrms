@@ -26,10 +26,16 @@ const ITEM_FIELDS = [
 	"name",
 	"item_code",
 	"item_group",
-	"stock_uom",
-	"opening_stock",
+	"custom_qty",
 	"custom_building",
 	"custom_floor",
+	"custom_manufacturer",
+	"custom_tag",
+	"custom_depth",
+	"custom_width",
+	"custom_diameter",
+	"custom_height",
+	"image",
 	"description"
 ]
 const FILTER_CONFIG = [
