@@ -9,7 +9,7 @@
 
 				<div class="flex flex-col gap-7 px-4 w-full">
 					<router-link
-						:to="{ name: 'ItemFormView' }"
+						:to="{ name: 'InventoryLogFormView' }"
 						v-slot="{ navigate }"
 					>
 						<Button
@@ -26,7 +26,7 @@
 							:component="markRaw(ExistingItem)"
 							:items="itemList.data"
 							:addListButton="true"
-							listButtonRoute="ItemListView"
+							listButtonRoute="InventoryLogListView"
 						/>
 					</div>
                     <!-- <div>

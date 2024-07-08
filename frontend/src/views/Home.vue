@@ -28,12 +28,12 @@ var quickLinks = [
 	{
 		icon: markRaw(EmployeeAdvanceIcon),
 		title: "+ Add Item",
-		route: "ItemFormView",
+		route: "InventoryLogFormView",
 	},	
 	{
 		icon: markRaw(LeaveIcon),
 		title: "View Items",
-		route: "ItemListView",
+		route: "InventoryLogListView",
 	}
 ]
 </script>

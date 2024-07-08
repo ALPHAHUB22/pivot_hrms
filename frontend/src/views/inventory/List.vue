@@ -1,7 +1,7 @@
 <template>
 	<ion-page>
 		<ListView
-			doctype="Item"
+			doctype="Inventory Log"
 			pageTitle="Item List"
 			:tabButtons="TAB_BUTTONS"
 			:fields="ITEM_FIELDS"
@@ -26,16 +26,15 @@ const ITEM_FIELDS = [
 	"name",
 	"item_code",
 	"item_group",
-	"custom_qty",
-	"custom_building",
-	"custom_floor",
-	"custom_manufacturer",
-	"custom_tag",
-	"custom_depth",
-	"custom_width",
-	"custom_diameter",
-	"custom_height",
-	"image",
+	"qty",
+	"building",
+	"floor",
+	"manufacturer",
+	"tag",
+	"depth",
+	"width",
+	"diameter",
+	"height",
 	"description"
 ]
 const FILTER_CONFIG = [

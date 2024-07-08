@@ -3,7 +3,7 @@
 		<ion-content :fullscreen="true">
 			<FormView
 				v-if="formFields.data"
-				doctype="Item"
+				doctype="Inventory Log"
 				v-model="leaveApplication"
 				:isSubmittable="false"
 				:fields="formFields.data"
@@ -61,9 +61,9 @@ const formFields = createResource({
 				manufacturer = data.custom_manufacturer
 			}
 			if (field.fieldname === "item_group") field.default = item_group
-			if (field.fieldname === "custom_building") field.default = building
-			if (field.fieldname === "custom_floor") field.default = floor
-			if (field.fieldname === "custom_manufacturer") field.default = manufacturer
+			if (field.fieldname === "building") field.default = building
+			if (field.fieldname === "floor") field.default = floor
+			if (field.fieldname === "manufacturer") field.default = manufacturer
 			console.log([field.fieldname, field.default])
 			return field
 		})

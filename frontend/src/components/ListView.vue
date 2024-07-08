@@ -170,7 +170,7 @@ const listItemComponent = {
 	// "Leave Application": markRaw(LeaveRequestItem),
 	// "Expense Claim": markRaw(ExpenseClaimItem),
 	// "Employee Advance": markRaw(EmployeeAdvanceItem),
-	"Item": markRaw(ExistingItem)
+	"Inventory Log": markRaw(ExistingItem)
 }
 
 const router = useRouter()
@@ -203,7 +203,7 @@ const formViewRoute = computed(() => {
 })
 
 const detailViewRoute = computed(() => {
-	return "ItemDetailView"
+	return "InventoryLogDetailView"
 })
 
 const defaultFilters = computed(() => {

@@ -42,7 +42,7 @@
 	>
 		<RequestActionSheet
 			:fields="
-				selectedRequest.doctype === 'Item'
+				selectedRequest.doctype === 'Inventory Log'
 					? ITEM_FIELDS
 					: EXPENSE_CLAIM_FIELDS
 			"

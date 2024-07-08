@@ -9,35 +9,35 @@
 						{{ props.doc.item_code }}
 					</div>
 					<div class="text-xs font-normal text-gray-500" style="display: flex;gap:15px;flex-wrap: wrap;">
-						<div v-if="props.doc.custom_manufacturer">
+						<div v-if="props.doc.manufacturer">
 							<span class="font-bold">Manufacturer</span>
 							<span class="whitespace-pre"> &middot; </span>
 							<span class="whitespace-nowrap">{{
-								`${props.doc.custom_manufacturer}`
+								`${props.doc.manufacturer}`
 							}}</span>
 							<span class="px-2">|</span>
 						</div>
-						<div v-if="props.doc.custom_building">
+						<div v-if="props.doc.building">
 							<span class="font-bold">Building</span>
 							<span class="whitespace-pre"> &middot; </span>
 							<span class="whitespace-nowrap">{{
-								`${props.doc.custom_building}`
+								`${props.doc.building}`
 							}}</span>
 							<span class="px-2">|</span>
 						</div>
-						<div v-if="props.doc.custom_floor">
+						<div v-if="props.doc.floor">
 							<span class="font-bold">Floor</span>
 							<span class="whitespace-pre"> &middot; </span>
 							<span class="whitespace-nowrap">{{
-								`${props.doc.custom_floor}`
+								`${props.doc.floor}`
 							}}</span>
 							<span class="px-2">|</span>
 						</div>
-						<div v-if="props.doc.custom_height">
+						<div v-if="props.doc.height">
 							<span class="font-bold">Height</span>
 							<span class="whitespace-pre"> &middot; </span>
 							<span class="whitespace-nowrap">{{
-								`${props.doc.custom_height}`
+								`${props.doc.height}`
 							}}</span>
 							<span class="px-2">|</span>
 						</div>
@@ -45,7 +45,7 @@
 							<span class="font-bold">Qty</span>
 							<span class="whitespace-pre"> &middot; </span>
 							<span class="whitespace-nowrap">{{
-								`${props.doc.custom_qty}`
+								`${props.doc.qty}`
 							}}</span>
 						</div>
 					</div>

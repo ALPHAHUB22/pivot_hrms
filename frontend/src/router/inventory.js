@@ -1,22 +1,22 @@
 const routes = [
 	{
-		name: "ItemFormView",
+		name: "InventoryLogFormView",
 		path: "/inventory/new",
 		component: () => import("@/views/inventory/Form.vue"),
 	},
 	{
-		name: "ItemListView",
+		name: "InventoryLogListView",
 		path: "/items/",
 		component: () => import("@/views/inventory/List.vue"),
 	},
 	{
-		name: "ItemBuildingListView",
+		name: "InventoryLogBuildingListView",
 		path: "/items/building/:filter",
 		props: true,
 		component: () => import("@/views/inventory/List.vue"),
 	},
 	{
-		name: "ItemDetailView",
+		name: "InventoryLogDetailView",
 		path: "/items/:id",
 		props: true,
 		component: () => import("@/views/inventory/Form.vue"),

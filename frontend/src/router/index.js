@@ -42,7 +42,7 @@ const routes = [
 			},
 			{
 				path: "/dashboard/inventory",
-				name: "InventoryDashboard",
+				name: "InventoryLogDashboard",
 				component: () => import("@/views/inventory/Dashboard.vue"),
 			},
 		],
