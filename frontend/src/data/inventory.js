@@ -5,7 +5,7 @@ import dayjs from "@/utils/dayjs"
 
 const transformLeaveData = (data) => {
 	return data.map((item) => {
-		item.doctype = "Item"
+		item.doctype = "Inventory Log"
 		return item
 	})
 }

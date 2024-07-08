@@ -40,11 +40,11 @@ const leaveApplication = ref({})
 const formFields = createResource({
 	url: "hrms.inventory.api.get_doctype_fields",
 	params: { 
-        doctype: "Item", 
+        doctype: "Inventory Log", 
         field_list: [
-			"item_code", "stock_uom", "item_group", "custom_qty", "custom_building", "custom_floor", 
-			"custom_depth", "custom_width", "custom_height", "custom_diameter", "description", "custom_tag", 
-			"custom_manufacturer", "custom_finish_spec", "custom_comments"
+			"item_code", "item_name", "uom", "item_group", "qty", "building", "floor", 
+			"depth", "width", "height", "diameter", "description", "tag", 
+			"manufacturer", "finish_spec", "comments"
 		]
     },
 	transform(data) {
