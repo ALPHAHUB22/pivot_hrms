@@ -220,14 +220,13 @@ const defaultFilters = computed(() => {
 
 // resources
 const documents = createResource({
-	url: "frappe.desk.reportview.get",
+	url: "pivot.api.get",
 	onSuccess: (data) => {
 		if (data.values?.length < listOptions.value.page_length) {
 			hasNextPage.value = false
 		}
 	},
 	transform(data) {
-		console.log(data)
 		if (data.length === 0) {
 			return []
 		}
@@ -263,7 +262,7 @@ function initializeFilters() {
 		}
 	})
 	if (props.filter){
-		appliedFilters.value = [[props.doctype, 'building', '=',props.filter]]
+		appliedFilters.value = [[props.doctype, 'custom_building', '=',props.filter]]
 	}
 	else{
 		appliedFilters.value = []

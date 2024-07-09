@@ -11,13 +11,27 @@ const transformData = (data) => {
 }
 
 export const itemList = createResource({
-	url: "hrms.inventory.api.get_item_info",
+	url: "pivot.api.get",
 	params: {
 		limit: 10,
 	},
 	auto: true,
 	transform(data) {
-		return transformData(data)
+		if (data.length === 0) {
+			return []
+		}
+
+		// convert keys and values arrays to docs object
+		const fields = data["keys"]
+		const values = data["values"]
+		const docs = values.map((value) => {
+			const doc = {}
+			fields.forEach((field, index) => {
+				doc[field] = value[index]
+			})
+			return doc
+		})
+		return docs
 	},
 	// onSuccess() {
 	// 	leaveBalance.reload()

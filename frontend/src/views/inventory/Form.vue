@@ -44,7 +44,7 @@ const formFields = createResource({
         field_list: [
 			"item_code", "item_name", "uom", "item_group", "qty", "building", "floor", 
 			"depth", "width", "height", "diameter", "description", "tag", 
-			"manufacturer", "finish_spec", "comments"
+			"manufacturer", "finish_specification", "comments"
 		]
     },
 	transform(data) {
@@ -64,7 +64,6 @@ const formFields = createResource({
 			if (field.fieldname === "building") field.default = building
 			if (field.fieldname === "floor") field.default = floor
 			if (field.fieldname === "manufacturer") field.default = manufacturer
-			console.log([field.fieldname, field.default])
 			return field
 		})
 	},
@@ -89,14 +88,23 @@ function getFilteredFields(fields) {
 }
 
 const inventoryInfo = createResource({
-	url: "hrms.api.get_inventory_info",
+	url: "pivot.api.get_inventory_info",
 	params: {
-		item: inventoryLog.value.item_code,
+		item: inventoryLog.value.item_code
 	},
 	onSuccess(data) {
 		inventoryLog.value.item_name = data.item_name
 		inventoryLog.value.uom = data.stock_uom
 		inventoryLog.value.item_group = data.item_group
+		inventoryLog.value.width = data.custom_width
+		inventoryLog.value.height = data.custom_height
+		inventoryLog.value.depth = data.custom_depth
+		inventoryLog.value.diameter = data.custom_diameter
+		inventoryLog.value.tag = data.custom_tag
+		inventoryLog.value.manufacturer = data.custom_manufacturer
+		inventoryLog.value.finish_specification = data.custom_finish_spec
+		inventoryLog.value.description = data.custom_description
+		inventoryLog.value.comments = data.custom_comments
 		// setLeaveTypes(data)
 	}
 })
@@ -104,17 +112,53 @@ const inventoryInfo = createResource({
 watch(
 	() => inventoryLog.value.item_code,
 	(item_code) => {
-		// inventoryLog.value.item_code = item_code
 		if (item_code) {
 			inventoryInfo.fetch({
 				item: item_code,
 			})
+			if (inventoryLog.value.floor){
+				stockBalance.fetch({
+				item_code: inventoryLog.value.item_code,
+				floor: inventoryLog.value.floor
+			})
+			}
 		}
 		else {
 			inventoryLog.value.item_name = ""
 			inventoryLog.value.uom = ""
-			inventoryLog.value.item_group = ""
+			inventoryLog.value.width = ""
+			inventoryLog.value.height = ""
+			inventoryLog.value.depth = ""
+			inventoryLog.value.diameter = ""
+			inventoryLog.value.tag = ""
+			inventoryLog.value.finish_specification = ""
+			inventoryLog.value.description = ""
+			inventoryLog.value.comments = ""
 		}
 	}
 )
+
+watch(
+	() => inventoryLog.value.floor,
+	(floor) => {
+		if (floor) {
+			stockBalance.fetch({
+				item_code: inventoryLog.value.item_code,
+				floor: inventoryLog.value.floor
+			})
+		}
+	}
+)
+
+const stockBalance = createResource({
+	url: "pivot.api.get_item_stock",
+	params: {
+		item_code: inventoryLog.value.item_code,
+		floor: inventoryLog.value.floor,
+	},
+	onSuccess(data) {
+		inventoryLog.value.qty = data
+	}
+})
+
 </script>
