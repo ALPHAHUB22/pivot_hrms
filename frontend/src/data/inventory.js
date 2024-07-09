@@ -3,7 +3,7 @@ import { markRaw } from "vue"
 import LeaveIcon from "@/components/icons/LeaveIcon.vue"
 import dayjs from "@/utils/dayjs"
 
-const transformLeaveData = (data) => {
+const transformData = (data) => {
 	return data.map((item) => {
 		item.doctype = "Inventory Log"
 		return item
@@ -17,7 +17,7 @@ export const itemList = createResource({
 	},
 	auto: true,
 	transform(data) {
-		return transformLeaveData(data)
+		return transformData(data)
 	},
 	// onSuccess() {
 	// 	leaveBalance.reload()
@@ -36,7 +36,7 @@ export const buildingList = createResource({
 			let t = {
 				icon: markRaw(LeaveIcon),
 				title: data[i].custom_building,
-				route: "ItemBuildingListView",
+				route: "InventoryLogBuildingListView",
 			}
 			quickLinks.push(t)
 		}

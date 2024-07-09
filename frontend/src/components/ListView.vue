@@ -263,7 +263,7 @@ function initializeFilters() {
 		}
 	})
 	if (props.filter){
-		appliedFilters.value = [[props.doctype, 'custom_building', '=',props.filter]]
+		appliedFilters.value = [[props.doctype, 'building', '=',props.filter]]
 	}
 	else{
 		appliedFilters.value = []

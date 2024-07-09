@@ -648,3 +648,9 @@ def get_allowed_states_for_workflow(workflow: dict, user_id: str) -> list[str]:
 @frappe.whitelist()
 def get_permitted_fields_for_write(doctype: str) -> list[str]:
 	return get_permitted_fields(doctype, permission_type="write")
+
+@frappe.whitelist()
+def get_inventory_info(item):
+	# frappe.get_all("Inventory Log", {"name"})
+	item_info = frappe.get_doc("Item", item)
+	return item_info

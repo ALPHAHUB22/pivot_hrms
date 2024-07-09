@@ -4,7 +4,7 @@
 			<FormView
 				v-if="formFields.data"
 				doctype="Inventory Log"
-				v-model="leaveApplication"
+				v-model="inventoryLog"
 				:isSubmittable="false"
 				:fields="formFields.data"
 				:id="props.id"
@@ -34,7 +34,7 @@ const props = defineProps({
 })
 
 // reactive object to store form data
-const leaveApplication = ref({})
+const inventoryLog = ref({})
 
 // get form fields
 const formFields = createResource({
@@ -56,9 +56,9 @@ const formFields = createResource({
 			var item_group, building, floor, manufacturer = ""
 			if (data){
 				item_group = data.item_group
-				building = data.custom_building
-				floor =  data.custom_floor
-				manufacturer = data.custom_manufacturer
+				building = data.building
+				floor =  data.floor
+				manufacturer = data.manufacturer
 			}
 			if (field.fieldname === "item_group") field.default = item_group
 			if (field.fieldname === "building") field.default = building
@@ -75,75 +75,6 @@ const formFields = createResource({
 })
 formFields.reload()
 
-const leaveApprovalDetails = createResource({
-	url: "hrms.api.get_leave_approval_details",
-	params: { employee: employee.data.name },
-	onSuccess(data) {
-		setLeaveApprovers(data)
-	},
-})
-
-const leaveTypes = createResource({
-	url: "hrms.api.get_leave_types",
-	params: {
-		employee: employee.data.name,
-		date: today,
-	},
-	onSuccess(data) {
-		setLeaveTypes(data)
-	},
-})
-
-// form scripts
-watch(
-	() => leaveApplication.value.employee,
-	(employee_id) => {
-		if (props.id && employee_id !== employee.data.name) {
-			// if employee is not the current user, set form as read only
-			setFormReadOnly()
-		}
-	}
-)
-watch(
-	() => leaveApplication.value.leave_type,
-	(leave_type) => setLeaveBalance(leave_type)
-)
-
-watch(
-	() => leaveApplication.value.half_day,
-	(half_day) => setHalfDayDate(half_day)
-)
-
-watch(
-	() => leaveApplication.value.half_day && leaveApplication.value.half_day_date,
-	() => setTotalLeaveDays()
-)
-
-watch(
-	() => leaveApplication.value.from_date,
-	(from_date) => {
-		if (!leaveApplication.value.to_date) {
-			leaveApplication.value.to_date = from_date
-		}
-
-		// fetch leave types for the selected date
-		leaveTypes.fetch({
-			employee: employee.data.name,
-			date: from_date,
-		})
-	}
-)
-
-watch(
-	() => [leaveApplication.value.from_date, leaveApplication.value.to_date],
-	([from_date, to_date]) => {
-		validateDates(from_date, to_date)
-		setHalfDayDateRange()
-		setTotalLeaveDays()
-	}
-)
-
-// helper functions
 function getFilteredFields(fields) {
 	// reduce noise from the form view by excluding unnecessary fields
 	// ex: employee and other details can be fetched from the session user
@@ -154,138 +85,36 @@ function getFilteredFields(fields) {
 		"letter_head",
 	]
 
-	const employeeFields = [
-		"employee",
-		"employee_name",
-		"department",
-		"company",
-		"follow_via_email",
-		"status",
-		"posting_date",
-	]
-
-	if (!props.id) excludeFields.push(...employeeFields)
-
 	return fields.filter((field) => !excludeFields.includes(field.fieldname))
 }
 
-function setFormReadOnly() {
-	if (leaveApplication.value.leave_approver === employee.data.user_id) return
-	formFields.data.map((field) => (field.read_only = true))
-}
-
-function validateDates(from_date, to_date) {
-	if (!(from_date && to_date)) return
-
-	const error_message =
-		from_date > to_date ? "To Date cannot be before From Date" : ""
-
-	const from_date_field = formFields.data.find(
-		(field) => field.fieldname === "from_date"
-	)
-	from_date_field.error_message = error_message
-}
-
-function setTotalLeaveDays() {
-	if (!areValuesSet()) return
-
-	const leaveDays = createResource({
-		url: "hrms.hr.doctype.leave_application.leave_application.get_number_of_leave_days",
-		params: {
-			employee: employee.data.name,
-			leave_type: leaveApplication.value.leave_type,
-			from_date: leaveApplication.value.from_date,
-			to_date: leaveApplication.value.to_date,
-			half_day: leaveApplication.value.half_day,
-			half_day_date: leaveApplication.value.half_day_date,
-		},
-		onSuccess(data) {
-			leaveApplication.value.total_leave_days = data
-		},
-	})
-	leaveDays.reload()
-	setLeaveBalance()
-}
-
-function setLeaveBalance() {
-	if (!areValuesSet()) return
-
-	const leaveBalance = createResource({
-		url: "hrms.hr.doctype.leave_application.leave_application.get_leave_balance_on",
-		params: {
-			employee: employee.data.name,
-			date: leaveApplication.value.from_date,
-			to_date: leaveApplication.value.to_date,
-			leave_type: leaveApplication.value.leave_type,
-			consider_all_leaves_in_the_allocation_period: 1,
-		},
-		onSuccess(data) {
-			leaveApplication.value.leave_balance = data
-		},
-	})
-	leaveBalance.reload()
-}
-
-function setHalfDayDate(half_day) {
-	const half_day_date = formFields.data.find(
-		(field) => field.fieldname === "half_day_date"
-	)
-	half_day_date.hidden = !half_day
-	half_day_date.reqd = half_day
-
-	if (!half_day) return
-
-	if (leaveApplication.value.from_date === leaveApplication.value.to_date) {
-		leaveApplication.value.half_day_date = leaveApplication.value.from_date
-	} else {
-		setHalfDayDateRange()
+const inventoryInfo = createResource({
+	url: "hrms.api.get_inventory_info",
+	params: {
+		item: inventoryLog.value.item_code,
+	},
+	onSuccess(data) {
+		inventoryLog.value.item_name = data.item_name
+		inventoryLog.value.uom = data.stock_uom
+		inventoryLog.value.item_group = data.item_group
+		// setLeaveTypes(data)
 	}
-}
+})
 
-function setHalfDayDateRange() {
-	const half_day_date = formFields.data.find(
-		(field) => field.fieldname === "half_day_date"
-	)
-	// half_day_date.minDate = leaveApplication.value.from_date
-	// half_day_date.maxDate = leaveApplication.value.to_date
-}
-
-function setLeaveApprovers(data) {
-	const leave_approver = formFields.data?.find(
-		(field) => field.fieldname === "leave_approver"
-	)
-	leave_approver.reqd = data?.is_mandatory
-	leave_approver.documentList = data?.department_approvers.map((approver) => ({
-		label: approver.full_name
-			? `${approver.name} : ${approver.full_name}`
-			: approver.name,
-		value: approver.name,
-	}))
-
-	leaveApplication.value.leave_approver = data?.leave_approver
-	leaveApplication.value.leave_approver_name = data?.leave_approver_name
-}
-
-function setLeaveTypes(data) {
-	const leave_type = formFields.data.find(
-		(field) => field.fieldname === "leave_type"
-	)
-	leave_type.documentList = data?.map((leave_type) => ({
-		label: leave_type,
-		value: leave_type,
-	}))
-}
-
-function areValuesSet() {
-	return (
-		leaveApplication.value.from_date &&
-		leaveApplication.value.to_date &&
-		leaveApplication.value.leave_type
-	)
-}
-
-function validateForm() {
-	// setHalfDayDate(leaveApplication.value.half_day)
-	// leaveApplication.value.employee = employee.data.name
-}
+watch(
+	() => inventoryLog.value.item_code,
+	(item_code) => {
+		// inventoryLog.value.item_code = item_code
+		if (item_code) {
+			inventoryInfo.fetch({
+				item: item_code,
+			})
+		}
+		else {
+			inventoryLog.value.item_name = ""
+			inventoryLog.value.uom = ""
+			inventoryLog.value.item_group = ""
+		}
+	}
+)
 </script>
