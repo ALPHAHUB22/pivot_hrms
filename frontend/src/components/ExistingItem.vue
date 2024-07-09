@@ -3,12 +3,20 @@
 		<div class="flex flex-row items-center justify-between">
 			<div class="flex flex-row items-start gap-3 grow">
 				<!-- <LeaveIcon class="h-5 w-5 text-gray-500" /> -->
-				 <img v-bind:src="props.doc.image?props.doc.image: '/files/demo.jpg'" alt="image" class="h-20 w-20 text-gray-500">
-				<div class="flex flex-col items-start gap-1.5">
+				 <img v-bind:src="props.doc.image" alt="image" class="h-20 w-20 text-gray-500">
+				<div class="flex flex-col items-start gap-5">
 					<div class="text-base font-normal text-gray-800">
 						{{ props.doc.item_code }}
 					</div>
 					<div class="text-xs font-normal text-gray-500" style="display: flex;gap:15px;flex-wrap: wrap;">
+						<div v-if="props.doc.item_name">
+							<span class="font-bold">Item Title</span>
+							<span class="whitespace-pre"> &middot; </span>
+							<span class="whitespace-nowrap">{{
+								`${props.doc.item_name}`
+							}}</span>
+							<span class="px-2">|</span>
+						</div>
 						<div v-if="props.doc.manufacturer">
 							<span class="font-bold">Manufacturer</span>
 							<span class="whitespace-pre"> &middot; </span>
