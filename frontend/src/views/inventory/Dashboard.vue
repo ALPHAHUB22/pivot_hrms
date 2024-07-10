@@ -17,7 +17,7 @@
 							variant="solid"
 							class="py-5 text-base w-full"
 						>
-							+ Add an Item
+							+ Add / Update an Item
 						</Button>
 					</router-link>
 					<div>

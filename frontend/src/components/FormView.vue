@@ -96,7 +96,7 @@
 					</div>
 
 					<FileUploaderView v-else-if="showAttachmentView" v-model="fileAttachments"
-						@handleFileSelect="handleFileSelect" @handleFileDelete="handleFileDelete" />
+						@handleFileSelect="handleFileSelect" @handleFileDelete="handleFileDelete" :id="id" />
 				</div>
 			</div>
 
@@ -511,6 +511,7 @@ function hasPermission(action) {
 }
 
 function isFieldReadOnly(field) {
+	if (props.id) return true
 	return (
 		Boolean(field.read_only)
 		|| isFormReadOnly.value
