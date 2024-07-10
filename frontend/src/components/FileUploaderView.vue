@@ -23,23 +23,28 @@
 		</label>
 
 		<div v-if="modelValue.length" class="w-full">
-			<ul class="w-full flex flex-col items-center gap-2">
+			<ul class="w-full flex flex-row justify-evenly gap-5 gap-y-8 flex-wrap">
 				<li
-					class="bg-gray-100 rounded p-2 w-full"
+					class="basis-1/4"
 					v-for="(file, index) in modelValue"
 					:key="index"
 				>
-					<div
-						class="flex flex-row items-center justify-between text-gray-700 text-sm"
-					>
+					<div class="gap-y-8">
+						<div
+							class="flex flex-row text-sm justify-end flex-wrap gap-1.5"
+						>
+							<a v-bind:href="file.file_url" :download="file.file_name">
+								<FeatherIcon name="download" class="h-5 w-5 text-gray-700" />
+							</a>
+							<FeatherIcon
+								name="x"
+								class="h-5 w-5 cursor-pointer text-gray-700"
+								@click="() => confirmDeleteAttachment(file)"
+							/>
+						</div>
 						<span class="grow" @click="showFilePreview(file)">
-							{{ file.file_name || file.name }}
+							<img id="image" v-bind:src="file.file_url" alt="image" class="flex flex-row h-30 w-30 text-gray-500">
 						</span>
-						<FeatherIcon
-							name="x"
-							class="h-4 w-4 cursor-pointer text-gray-700"
-							@click="() => confirmDeleteAttachment(file)"
-						/>
 					</div>
 				</li>
 			</ul>

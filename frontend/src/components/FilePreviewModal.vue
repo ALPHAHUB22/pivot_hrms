@@ -3,14 +3,17 @@
 		<ion-toolbar>
 			<ion-title>{{ filename }} - File Preview</ion-title>
 			<ion-buttons slot="end">
+				<ion-button><a v-bind:href="file.file_url" :download="file.file_name">Download</a></ion-button>
 				<ion-button @click="modalController.dismiss()">Close</ion-button>
 			</ion-buttons>
 		</ion-toolbar>
 	</ion-header>
 	<ion-content>
 		<div class="bg-white h-full w-full overflow-auto touch-pinch-zoom">
-			<img v-if="isImageFile" :src="src" class="h-auto image-preview" />
-			<iframe v-else :src="src" class="w-full h-full"></iframe>
+			<div class="flex flex-row justify-center flex-wrap">
+				<img v-if="isImageFile" :src="src" class="h-auto image-preview" />
+				<iframe v-else :src="src" class="w-full h-full"></iframe>
+			</div>
 		</div>
 	</ion-content>
 </template>
