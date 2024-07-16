@@ -4,7 +4,7 @@
 			<div class="flex flex-col items-center my-7 p-4 gap-7">
 				<CheckInPanel />
 				<QuickLinks :items="quickLinks" title="Quick Links" />
-				<!-- <BuildingQuickLinks :items="buildingList.data" title="Recent Warehouses" /> -->
+				<BuildingQuickLinks :items="buildingList.data" title="Recent Warehouses" />
 				<!-- <RequestPanel /> -->
 			</div>
 		</template>

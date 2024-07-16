@@ -22,5 +22,5 @@ def get_item_info(limit:int):
 
 @frappe.whitelist()
 def get_warehouse_info(limit:int):
-    building_info = frappe.db.get_all("Item", ["custom_building"], group_by="custom_building", limit=limit)
+    building_info = frappe.db.get_all("Inventory Log", ["floor"], group_by="floor", limit=limit)
     return building_info
