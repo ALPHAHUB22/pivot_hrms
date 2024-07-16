@@ -45,9 +45,9 @@ const FILTER_CONFIG = [
 		options: "Item Group",
 	},
 	{
-		fieldname: "custom_building",
+		fieldname: "floor",
 		fieldtype: "Link",
-		label: "Building",
+		label: "Floor",
 		options: "Warehouse"
 	}
 ]

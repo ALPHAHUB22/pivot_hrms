@@ -49,7 +49,7 @@ export const buildingList = createResource({
 		for(let i=0; i<data.length; i++){
 			let t = {
 				icon: markRaw(LeaveIcon),
-				title: data[i].custom_building,
+				title: data[i].floor,
 				route: "InventoryLogBuildingListView",
 			}
 			quickLinks.push(t)
