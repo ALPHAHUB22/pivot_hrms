@@ -34,7 +34,7 @@
 						<div
 							class="flex flex-row text-sm justify-end flex-wrap gap-1.5"
 						>
-							<a v-bind:href="file.file_url" :download="file.file_name">
+							<a v-if="file.file_url" v-bind:href="file.file_url" :download="file.file_name">
 								<FeatherIcon name="download" class="h-5 w-5 text-gray-700" />
 							</a>
 							<FeatherIcon
@@ -43,8 +43,11 @@
 								@click="() => confirmDeleteAttachment(file)"
 							/>
 						</div>
-						<span class="grow" @click="showFilePreview(file)">
+						<span v-if="file.file_url" class="grow" @click="showFilePreview(file)">
 							<img id="image" v-bind:src="file.file_url" alt="image" class="flex flex-row h-30 w-30 text-gray-500">
+						</span>
+						<span v-else-if="!file.file_url" class="grow" @click="showFilePreview(file)">
+							{{ file.file_name || file.name }}
 						</span>
 					</div>
 				</li>
