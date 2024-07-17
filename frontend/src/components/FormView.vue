@@ -324,6 +324,20 @@ watch(
 	{ immediate: true }
 )
 
+// watch(
+// 	() => formModel.value.building,
+// 	(val) => {
+// 		console.log(val)
+// 		props.fields.map(function(value, key){
+// 			// console.log()
+// 			if (value.fieldname === "floor"){
+// 				console.log(value)
+// 				value.linkFilters = {"parent_warehouse": val}
+// 			}
+// 		})
+// 	}
+// )
+
 const tabFields = computed(() => {
 	let fieldsByTab = {}
 	let fieldList = []
@@ -653,6 +667,14 @@ const isFormReady = computed(() => {
 })
 
 onMounted(async () => {
+	props.fields.map(function(value, key) {
+		if (value.fieldname === "building"){
+			value.linkFilters = {"is_group": 1}
+		}
+		if (value.fieldname === "floor"){
+			value.linkFilters = {"is_group": 0}
+		}
+	});
 	if (props.id) {
 		await documentResource.get.promise
 		formModel.value = { ...documentResource.doc }
