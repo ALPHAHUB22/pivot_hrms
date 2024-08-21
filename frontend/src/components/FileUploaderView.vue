@@ -17,7 +17,7 @@
 					ref="input"
 					type="file"
 					multiple
-					accept="*"
+					accept=".png, .jpg, .jpeg"
 					@change="(e) => emit('handle-file-select', e)"
 				/>
 			</div>
@@ -47,7 +47,7 @@
 							<img id="image" v-bind:src="file.file_url" alt="image" class="flex flex-row h-30 w-30 text-gray-500">
 						</span>
 						<span v-else-if="!file.file_url" class="grow" @click="showFilePreview(file)">
-							{{ file.file_name || file.name }}
+							<img id="image" v-bind:src="src(file)" alt="image" class="flex flex-row h-30 w-30 text-gray-500">
 						</span>
 					</div>
 				</li>
@@ -122,6 +122,10 @@ const emit = defineEmits(["handle-file-select", "handle-file-delete"])
 function showFilePreview(fileObj) {
 	selectedFile.value = fileObj
 	showPreviewModal.value = true
+}
+
+function src(fileObj) {
+	return URL.createObjectURL(fileObj)
 }
 
 function confirmDeleteAttachment(fileObj) {
