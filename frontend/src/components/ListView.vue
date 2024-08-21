@@ -51,45 +51,14 @@
 		>
 			<div class="w-full mt-5">
 				<TabButtons
-					:buttons="[{ label: tabButtons[0] }, { label: tabButtons[1] }]"
+					:buttons="[{ label: tabButtons[0]}]"
 					v-model="activeTab"
 				/>
-
-				<div
-					class="flex flex-col bg-white rounded mt-5"
-					v-if="!documents.loading && documents.data?.length"
-				>
-					<div
-						class="p-3.5 items-center justify-between border-b cursor-pointer"
-						v-for="link in documents.data"
-						:key="link.name"
-					>
-						<router-link
-							:to="{ name: detailViewRoute, params: { id: link.name } }"
-							v-slot="{ navigate }"
-						>
-							<component
-								:is="listItemComponent[doctype]"
-								:doc="link"
-								:isTeamRequest="isTeamRequest"
-								:workflowStateField="workflowStateField"
-								@click="navigate"
-							/>
-						</router-link>
-					</div>
-				</div>
-				<EmptyState
-					:message="`No ${props.doctype?.toLowerCase()}s found`"
-					v-else-if="!documents.loading"
+				<Pagination
+					:doctype="'Inventory Log'"
+					:filters="appliedFilters"
 				/>
-
-				<!-- Loading Indicator -->
-				<div
-					v-if="documents.loading"
-					class="flex mt-2 items-center justify-center"
-				>
-					<LoadingIndicator class="w-8 h-8 text-gray-800" />
-				</div>
+				
 			</div>
 		</div>
 
@@ -126,6 +95,7 @@ import {
 } from "frappe-ui"
 
 import TabButtons from "@/components/TabButtons.vue"
+import Pagination from "@/components/Pagination.vue"
 import LeaveRequestItem from "@/components/LeaveRequestItem.vue"
 import ExpenseClaimItem from "@/components/ExpenseClaimItem.vue"
 import EmployeeAdvanceItem from "@/components/EmployeeAdvanceItem.vue"
@@ -227,6 +197,7 @@ const documents = createResource({
 		}
 	},
 	transform(data) {
+		data = data[0]
 		if (data.length === 0) {
 			return []
 		}

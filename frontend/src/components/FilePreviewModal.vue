@@ -3,7 +3,7 @@
 		<ion-toolbar>
 			<ion-title>{{ filename }} - File Preview</ion-title>
 			<ion-buttons slot="end">
-				<ion-button><a v-if="file.file_url" v-bind:href="file.file_url" :download="file.file_name">Download</a></ion-button>
+				<ion-button><a v-if="file.file_name" v-bind:href="file.file_url" :download="file.file_name">Download</a></ion-button>
 				<ion-button @click="modalController.dismiss()">Close</ion-button>
 			</ion-buttons>
 		</ion-toolbar>
@@ -38,7 +38,7 @@ const props = defineProps({
 })
 
 const filename = computed(() => {
-	return props.file.file_name || props.file.name
+	return props.file.name
 })
 
 const src = computed(() => {

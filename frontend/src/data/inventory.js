@@ -13,10 +13,11 @@ const transformData = (data) => {
 export const itemList = createResource({
 	url: "pivot.api.get",
 	params: {
-		limit: 10,
+		limit: 25,
 	},
 	auto: true,
 	transform(data) {
+		data = data[0]
 		if (data.length === 0) {
 			return []
 		}

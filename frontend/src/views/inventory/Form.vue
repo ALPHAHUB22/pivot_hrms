@@ -9,7 +9,6 @@
 				:fields="formFields.data"
 				:id="props.id"
 				:showAttachmentView="true"
-				@validateForm="validateForm"
 			/>
 		</ion-content>
 	</ion-page>
@@ -125,7 +124,6 @@ watch(
 		}
 		else {
 			inventoryLog.value.item_name = ""
-			inventoryLog.value.uom = ""
 			inventoryLog.value.width = ""
 			inventoryLog.value.height = ""
 			inventoryLog.value.depth = ""
