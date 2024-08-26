@@ -31,6 +31,7 @@
 			v-else-if="props.fieldtype === 'Link'"
 			:doctype="props.options"
 			:modelValue="modelValue"
+			:placeholderName = props.placeholderName
 			:filters="props.linkFilters"
 			:disabled="isReadOnly"
 			@update:modelValue="(v) => emit('update:modelValue', v)"
@@ -165,6 +166,7 @@ const props = defineProps({
 		type: Boolean,
 		default: true,
 	},
+	placeholderName: String
 })
 
 const emit = defineEmits(["change", "update:modelValue"])

@@ -4,7 +4,6 @@
 			<h2 class="text-base font-semibold text-gray-800 pb-4">Attachments</h2>
 			<div class="select-button cursor-pointer">
 				<div
-					v-if="!props.id"
 					class="flex flex-col w-full border shadow-sm items-center rounded p-3 gap-2"
 				>
 					<FeatherIcon name="upload" class="h-6 w-6 text-gray-700" />

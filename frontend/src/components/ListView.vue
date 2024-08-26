@@ -49,11 +49,7 @@
 			ref="scrollContainer"
 			@scroll="() => handleScroll()"
 		>
-			<div class="w-full mt-5">
-				<TabButtons
-					:buttons="[{ label: tabButtons[0]}]"
-					v-model="activeTab"
-				/>
+		<div class="w-full mt-5">
 				<Pagination
 					:doctype="'Inventory Log'"
 					:filters="appliedFilters"
@@ -94,11 +90,7 @@ import {
 	debounce,
 } from "frappe-ui"
 
-import TabButtons from "@/components/TabButtons.vue"
 import Pagination from "@/components/Pagination.vue"
-import LeaveRequestItem from "@/components/LeaveRequestItem.vue"
-import ExpenseClaimItem from "@/components/ExpenseClaimItem.vue"
-import EmployeeAdvanceItem from "@/components/EmployeeAdvanceItem.vue"
 import ListFiltersActionSheet from "@/components/ListFiltersActionSheet.vue"
 import CustomIonModal from "@/components/CustomIonModal.vue"
 
@@ -137,12 +129,8 @@ const props = defineProps({
 })
 
 const listItemComponent = {
-	// "Leave Application": markRaw(LeaveRequestItem),
-	// "Expense Claim": markRaw(ExpenseClaimItem),
-	// "Employee Advance": markRaw(EmployeeAdvanceItem),
 	"Inventory Log": markRaw(ExistingItem)
 }
-
 const router = useRouter()
 const socket = inject("$socket")
 const employee = inject("$employee")
@@ -178,13 +166,6 @@ const detailViewRoute = computed(() => {
 
 const defaultFilters = computed(() => {
 	const filters = []
-
-	// if (isTeamRequest.value) {
-	// 	filters.push([props.doctype, "employee", "!=", employee.data.name])
-	// } else {
-	// 	filters.push([props.doctype, "employee", "=", employee.data.name])
-	// }
-
 	return filters
 })
 

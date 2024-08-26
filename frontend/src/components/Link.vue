@@ -3,7 +3,7 @@
 		ref="autocompleteRef"
 		size="sm"
 		v-model="value"
-		:placeholder="`Select ${doctype}`"
+		:placeholder="`Select ${placeholderName || doctype}`"
 		:options="options.data"
 		:class="disabled ? 'pointer-events-none' : ''"
 		:disabled="disabled"
@@ -18,6 +18,9 @@ const props = defineProps({
 	doctype: {
 		type: String,
 		required: true,
+	},
+	placeholderName: {
+		type: String
 	},
 	modelValue: {
 		type: String,

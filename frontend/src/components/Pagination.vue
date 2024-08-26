@@ -1,8 +1,20 @@
 <template>
     <div class="hello">
-        <div class="text-right text-sm font-normal pr-2 pt-2  pb-0">{{this.current_records}} of {{ total }}</div>
+        <div class="text-right text-sm font-normal pr-2 pt-2  pb-2">{{this.current_records}} of {{ total }}</div>
+        <vue3-tailwind-pagination
+            class=""
+            :total="total"
+            :per_page="perPage"
+            :background="'bg-white'"
+            :color="'text-black'"
+            :active_color="'text-white'"
+            :active_background="'bg-gray-700'"
+            :active_border_color="'border-black'"
+            :current_page="currentPage"
+            @change="pageChange($event)"
+        />
         <div
-            class="flex flex-col bg-white rounded mt-5"
+            class="flex flex-col bg-white rounded mt-0.5"
             v-if="!documents.loading && documents.data?.length"
         >
             <div
@@ -31,10 +43,14 @@
     <vue3-tailwind-pagination
         :total="total"
         :per_page="perPage"
-        :active_color="'text-black'"
+        :background="'bg-white'"
+        :color="'text-black'"
+        :active_color="'text-white'"
         :active_background="'bg-gray-700'"
+        :active_border_color="'border-black'"
         :current_page="currentPage"
-        @change="pageChange($event)"/>
+        @change="pageChange($event)"
+    />
 
 </template>
 

@@ -6,6 +6,7 @@
 				<QuickLinks :items="quickLinks" title="Quick Links" />
 				<BuildingQuickLinks :items="buildingList.data" title="Recent Warehouses" />
 				<!-- <RequestPanel /> -->
+				<h2>For adding new warehouse, please contact System Admin</h2>
 			</div>
 		</template>
 	</BaseLayout>
@@ -32,7 +33,7 @@ var quickLinks = [
 	},	
 	{
 		icon: markRaw(LeaveIcon),
-		title: "View Items",
+		title: "View Items (All Warehouses)",
 		route: "InventoryLogListView",
 	}
 ]
