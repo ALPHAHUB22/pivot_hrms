@@ -1,8 +1,20 @@
 <template>
     <div class="hello">
-        <div class="text-right text-sm font-normal pr-2 pt-2  pb-0">{{this.current_records}} of {{ total }}</div>
+        <div class="text-right text-sm font-normal pr-2 pt-2  pb-2">{{this.current_records}} of {{ total }}</div>
+        <vue3-tailwind-pagination
+            class=""
+            :total="total"
+            :per_page="perPage"
+            :background="'bg-white'"
+            :color="'text-black'"
+            :active_color="'text-white'"
+            :active_background="'bg-gray-700'"
+            :active_border_color="'border-black'"
+            :current_page="currentPage"
+            @change="pageChange($event)"
+        />
         <div
-            class="flex flex-col bg-white rounded mt-5"
+            class="flex flex-col bg-white rounded mt-0.5"
             v-if="!documents.loading && documents.data?.length"
         >
             <div
@@ -31,10 +43,14 @@
     <vue3-tailwind-pagination
         :total="total"
         :per_page="perPage"
-        :active_color="'text-black'"
+        :background="'bg-white'"
+        :color="'text-black'"
+        :active_color="'text-white'"
         :active_background="'bg-gray-700'"
+        :active_border_color="'border-black'"
         :current_page="currentPage"
-        @change="pageChange($event)"/>
+        @change="pageChange($event)"
+    />
 
 </template>
 
@@ -56,6 +72,9 @@ export default {
     data(){
         this.perPage = 10
         this.current_records = this.perPage
+        if (this.total < this.perPage){
+            this.current_records = this.total
+        }
         return {
             currentPage:1,
             total: 50,
@@ -64,11 +83,9 @@ export default {
     },
     methods:{
         pageChange(pageNumber){
+            this.current_records = this.total
             if (this.perPage*pageNumber < this.total){
                 this.current_records = this.perPage*pageNumber
-            }
-            else{
-                this.current_records = this.total
             }
             this.currentPage = pageNumber;
             this.limit_start = this.perPage * (pageNumber - 1)
@@ -86,6 +103,10 @@ export default {
                 },
                 onSuccess: (data) => {
                     this.total = data[1]
+                    this.current_records = this.perPage
+                    if (this.total < this.perPage){
+                        this.current_records = this.total
+                    }
                 },
                 transform(data) {
                     data = data[0]

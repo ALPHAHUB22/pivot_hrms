@@ -6,7 +6,7 @@
 				 <img v-bind:src="props.doc.image" alt="image" class="h-20 w-20 text-gray-500">
 				<div class="flex flex-col items-start gap-5">
 					<div class="text-base font-normal text-gray-800">
-						{{ props.doc.item_code }}
+						<strong>{{ props.doc.item_name }}</strong>
 					</div>
 					<div class="text-xs font-normal text-gray-500" style="display: flex;gap:15px;flex-wrap: wrap;">
 						<div v-if="props.doc.item_name">

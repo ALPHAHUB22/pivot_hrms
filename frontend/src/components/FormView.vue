@@ -121,7 +121,7 @@
 
 				<Button class="w-full rounded py-5 text-base disabled:bg-gray-700 disabled:text-white"
 					:class="formButton === 'Cancel' ? 'shadow' : ''"
-					@click="formButton === 'Save' ? saveForm() : submitOrCancelForm()"
+					@click="formButton === 'Add +' || 'Update' ? saveForm() : submitOrCancelForm()"
 					:variant="formButton === 'Cancel' ? 'subtle' : 'solid'" :loading="docList.insert.loading || documentResource?.setValue?.loading
 						">
 					{{ formButton }}
@@ -502,6 +502,8 @@ const permittedWriteFields = createResource({
 	params: { doctype: props.doctype },
 })
 
+console.log([props.id, "KKKKK"])
+
 const formButton = computed(() => {
 	if (!props.showFormButton) return
 
@@ -512,7 +514,12 @@ const formButton = computed(() => {
 			return "Cancel"
 		}
 	} else if (formModel.value.docstatus !== 2) {
-		return "Save"
+		if (props.id){
+			return "Update"
+		}
+		else{
+			return "Add +"
+		}
 	}
 })
 
@@ -525,7 +532,7 @@ function hasPermission(action) {
 }
 
 function isFieldReadOnly(field) {
-	if (props.id) return true
+	// if (props.id) return true
 	return (
 		Boolean(field.read_only)
 		|| isFormReadOnly.value

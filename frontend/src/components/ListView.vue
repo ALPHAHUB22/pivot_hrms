@@ -49,11 +49,24 @@
 			ref="scrollContainer"
 			@scroll="() => handleScroll()"
 		>
-			<div class="w-full mt-5">
-				<TabButtons
-					:buttons="[{ label: tabButtons[0]}]"
-					v-model="activeTab"
-				/>
+		<div 
+			class="flex flex-row w-full"
+		>
+			<div v-for="(field, index) in filterSchema" class="grow ms-1 pl-1">
+				<strong class="grow ms-1 pl-1">{{ field.label }}</strong>
+				<div v-for="(test_field, test_index) in filter_values.data">
+					<Autocomplete 
+						v-if="test_field.fieldname === field.fieldname"
+						:key="index"
+						:placeholder="`Choose ${field.label}`"
+						v-model="specificItem[field.fieldname]"
+						:options="test_field.values"
+					/>
+				</div>
+			<hr>
+			</div>
+		</div>
+			<div class="w-full mt-1">
 				<Pagination
 					:doctype="'Inventory Log'"
 					:filters="appliedFilters"
@@ -92,13 +105,10 @@ import {
 	createResource,
 	LoadingIndicator,
 	debounce,
+	Autocomplete
 } from "frappe-ui"
 
-import TabButtons from "@/components/TabButtons.vue"
 import Pagination from "@/components/Pagination.vue"
-import LeaveRequestItem from "@/components/LeaveRequestItem.vue"
-import ExpenseClaimItem from "@/components/ExpenseClaimItem.vue"
-import EmployeeAdvanceItem from "@/components/EmployeeAdvanceItem.vue"
 import ListFiltersActionSheet from "@/components/ListFiltersActionSheet.vue"
 import CustomIonModal from "@/components/CustomIonModal.vue"
 
@@ -137,12 +147,8 @@ const props = defineProps({
 })
 
 const listItemComponent = {
-	// "Leave Application": markRaw(LeaveRequestItem),
-	// "Expense Claim": markRaw(ExpenseClaimItem),
-	// "Employee Advance": markRaw(EmployeeAdvanceItem),
 	"Inventory Log": markRaw(ExistingItem)
 }
-
 const router = useRouter()
 const socket = inject("$socket")
 const employee = inject("$employee")
@@ -178,13 +184,6 @@ const detailViewRoute = computed(() => {
 
 const defaultFilters = computed(() => {
 	const filters = []
-
-	// if (isTeamRequest.value) {
-	// 	filters.push([props.doctype, "employee", "!=", employee.data.name])
-	// } else {
-	// 	filters.push([props.doctype, "employee", "=", employee.data.name])
-	// }
-
 	return filters
 })
 
@@ -223,6 +222,51 @@ const documents = createResource({
 		return pagedData
 	},
 })
+
+const filterSchema = [
+	{
+		label: 'Item',
+		fieldname: 'item_name',
+		fieldtype: 'Link',
+		options: 'Item',
+		filterfieldname: "item_name"
+	},
+	{
+		label: 'Building',
+		fieldname: 'building',
+		fieldtype: 'Link',
+		options: 'Warehouse'
+	}
+]
+
+const specificItem = ref({});
+
+const filter_values = createResource({
+	url: 'hrms.inventory.api.get_filter_values',
+	params: {
+		filterSchema: filterSchema
+	},
+	auto: true
+})
+
+watch(
+	() => specificItem.value,
+	(value) => {
+		filterSchema.forEach((val) =>{
+			if (value[val.fieldname]){
+				filterMap[val.fieldname] = {
+					condition: "=",
+					value: value[val.fieldname].value,
+				}
+			}
+			else{
+				delete filterMap[val.fieldname]
+			}
+		})
+		applyFilters()
+	},
+	{ deep: true }
+)
 
 // helper functions
 function initializeFilters() {
