@@ -72,6 +72,9 @@ export default {
     data(){
         this.perPage = 10
         this.current_records = this.perPage
+        if (this.total < this.perPage){
+            this.current_records = this.total
+        }
         return {
             currentPage:1,
             total: 50,
@@ -80,11 +83,9 @@ export default {
     },
     methods:{
         pageChange(pageNumber){
+            this.current_records = this.total
             if (this.perPage*pageNumber < this.total){
                 this.current_records = this.perPage*pageNumber
-            }
-            else{
-                this.current_records = this.total
             }
             this.currentPage = pageNumber;
             this.limit_start = this.perPage * (pageNumber - 1)
@@ -102,6 +103,10 @@ export default {
                 },
                 onSuccess: (data) => {
                     this.total = data[1]
+                    this.current_records = this.perPage
+                    if (this.total < this.perPage){
+                        this.current_records = this.total
+                    }
                 },
                 transform(data) {
                     data = data[0]
