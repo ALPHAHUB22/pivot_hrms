@@ -13,11 +13,11 @@
 					<Badge v-if="status" :label="status" :theme="statusColor" class="whitespace-nowrap text-[8px]" />
 
 					<Dropdown class="ml-auto" :options="[
-						{
-							label: 'Delete',
-							condition: showDeleteButton,
-							onClick: () => (showDeleteDialog = true),
-						},
+						// {
+						// 	label: 'Delete',
+						// 	condition: showDeleteButton,
+						// 	onClick: () => (showDeleteDialog = true),
+						// },
 						{ label: 'Reload', onClick: () => reloadDoc() },
 					]" :button="{
 							label: 'Menu',
@@ -299,6 +299,13 @@ const status = computed(() => {
 	}
 
 	return formModel.value.status || formModel.value.approval_status
+})
+
+props.fields.map(function(value, key){
+	const lists = ["qty", "width", "height", "depth", "diameter"]
+	if (!lists.includes(value.fieldname) && props.id){
+		value.read_only = 1
+	}
 })
 
 watch(
