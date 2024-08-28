@@ -41,7 +41,7 @@ const formFields = createResource({
 	params: { 
         doctype: "Inventory Log", 
         field_list: [
-			"item_code", "item_name", "uom", "item_group", "qty", "building", "floor", 
+			"item_name", "uom", "item_group", "qty", "building", "floor", 
 			"depth", "width", "height", "diameter", "description", "tag", 
 			"manufacturer", "finish_specification", "comments"
 		]
