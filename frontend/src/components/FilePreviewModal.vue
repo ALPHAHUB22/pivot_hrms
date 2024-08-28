@@ -11,8 +11,8 @@
 	<ion-content>
 		<div class="bg-white h-full w-full overflow-auto touch-pinch-zoom">
 			<div class="flex flex-row justify-center flex-wrap">
-				<img v-if="isImageFile" :src="src" class="h-auto image-preview" />
-				<iframe v-else :src="src" class="w-full h-full"></iframe>
+				<img :src="src" class="h-auto image-preview" />
+				<!-- <iframe v-else :src="src" class="w-full image-preview"></iframe> -->
 			</div>
 		</div>
 	</ion-content>
@@ -51,6 +51,7 @@ const isImageFile = computed(() => {
 	return /\.(gif|jpg|jpeg|tiff|png|svg)$/i.test(filename.value)
 })
 
+console.log(filename.value)
 onBeforeUnmount(() => {
 	URL.revokeObjectURL(src.value)
 })
