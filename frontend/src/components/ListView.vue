@@ -45,15 +45,15 @@
 		</ion-refresher>
 
 		<div
-			class="flex flex-col items-center mb-7 p-4 h-full w-full sm:w-96 overflow-y-auto"
+			class="flex flex-col items-center mb-7 p-4 h-full w-full"
 			ref="scrollContainer"
 			@scroll="() => handleScroll()"
 		>
 		<div 
-			class="flex flex-row w-full"
+			class="flex flex-row flex-wrap bg-white pb-4 pr-2 pt-1.5 rounded-md justify-around content-around w-full"
 		>
 			<div v-for="(field, index) in filterSchema" class="grow ms-1 pl-1">
-				<strong class="grow ms-1 pl-1">{{ field.label }}</strong>
+				<strong class="ms-1">{{ field.label }}</strong>
 				<div v-for="(test_field, test_index) in filter_values.data">
 					<Autocomplete 
 						v-if="test_field.fieldname === field.fieldname"
@@ -63,7 +63,6 @@
 						:options="test_field.values"
 					/>
 				</div>
-			<hr>
 			</div>
 		</div>
 			<div class="w-full mt-1">
