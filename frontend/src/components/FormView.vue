@@ -430,12 +430,11 @@ const docList = createListResource({
 			})
 			sessionStorage.setItem('item_info', JSON.stringify(data));
 			await uploadAllAttachments(data.doctype, data.name, fileAttachments.value)
-			router.replace({
-				// name: `${props.doctype.replace(/\s+/g, "")}DetailView`,
-				name: "InventoryLogListView"
-				// params: { id: data.name },
-			})
-			itemList.reload()
+			// router.replace({
+			// 	name: "InventoryLogListView"
+			// })
+			window.location.href = "http://54.176.215.42/hrms/items/";
+			// itemList.reload()
 		},
 		onError() {
 			toast({
