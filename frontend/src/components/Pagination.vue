@@ -131,7 +131,7 @@ export default {
             "Inventory Log": markRaw(ExistingItem)
         }
         this.currentPage = 1
-        this.limit_start = 1
+        this.limit_start = 0
         this.getData()
         this.$watch('filters', function() {
             this.limit_start = 0

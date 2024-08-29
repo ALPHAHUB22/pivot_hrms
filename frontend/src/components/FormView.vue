@@ -432,7 +432,7 @@ const docList = createListResource({
 			await uploadAllAttachments(data.doctype, data.name, fileAttachments.value)
 			router.replace({
 				// name: `${props.doctype.replace(/\s+/g, "")}DetailView`,
-				name: "InventoryLogDashboard"
+				name: "InventoryLogListView"
 				// params: { id: data.name },
 			})
 			itemList.reload()
