@@ -43,7 +43,7 @@ const formFields = createResource({
         field_list: [
 			"item_name", "uom", "item_group", "qty", "building", "floor", 
 			"depth", "width", "height", "diameter", "description", "tag", 
-			"manufacturer", "finish_specification", "comments"
+			"manufacturer", "finish_spec", "comments"
 		]
     },
 	transform(data) {
