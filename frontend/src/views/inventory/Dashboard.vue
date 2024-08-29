@@ -2,7 +2,7 @@
 	<BaseLayout pageTitle="Inventory">
 		<template #body>
             <div class="flex flex-col gap-7 mt-5 px-4 w-full">
-                <div class="text-lg text-gray-800 font-bold">Pivot Inventory Management</div>
+                <div class="text-lg text-gray-800 font-bold">TurboTracker</div>
 
             </div>
 			<div class="flex flex-col items-center mb-7 py-4">

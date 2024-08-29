@@ -71,24 +71,22 @@ export default {
     },
     data(){
         this.perPage = 10
+        this.pageNumber = 1
         this.current_records = this.perPage
         if (this.total < this.perPage){
             this.current_records = this.total
         }
         return {
-            currentPage:1,
-            total: 50,
+            currentPage:this.pageNumber,
+            total: this.current_records,
             documents: []
         }
     },
     methods:{
         pageChange(pageNumber){
-            this.current_records = this.total
-            if (this.perPage*pageNumber < this.total){
-                this.current_records = this.perPage*pageNumber
-            }
+            this.pageNumber = pageNumber
             this.currentPage = pageNumber;
-            this.limit_start = this.perPage * (pageNumber - 1)
+            this.limit_start = this.perPage * (this.pageNumber - 1)
             this.getData()
         },
 
@@ -103,9 +101,11 @@ export default {
                 },
                 onSuccess: (data) => {
                     this.total = data[1]
-                    this.current_records = this.perPage
-                    if (this.total < this.perPage){
+                    if ((this.pageNumber === 1 && this.total <= this.perPage) || this.perPage*this.pageNumber > this.total){
                         this.current_records = this.total
+                    }
+                    else if (this.perPage*this.pageNumber < this.total){
+                        this.current_records = this.perPage*this.pageNumber
                     }
                 },
                 transform(data) {

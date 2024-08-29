@@ -62,7 +62,7 @@ const props = defineProps({
 	pageTitle: {
 		type: String,
 		required: false,
-		default: "Pivot Inventory Management",
+		default: "TurboTracker",
 	},
 })
 </script>
