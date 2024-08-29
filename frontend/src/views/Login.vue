@@ -9,7 +9,7 @@
 					</div>
 				</div>
 
-				<div class="mx-auto mt-10 w-full px-8 sm:w-96">
+				<div class="mx-auto mt-10 w-full px-8 md:w-96">
 					<form class="flex flex-col space-y-4" @submit.prevent="submit">
 						<Input
 							label="Email"
