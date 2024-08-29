@@ -59,7 +59,7 @@ const formFields = createResource({
 				floor =  data.floor
 				manufacturer = data.manufacturer
 			}
-			if (field.fieldname === "item_group") field.default = item_group
+			if (field.fieldname === "item_group" && item_group) field.default = item_group
 			if (field.fieldname === "building") field.default = building
 			if (field.fieldname === "floor") field.default = floor
 			if (field.fieldname === "manufacturer") field.default = manufacturer
