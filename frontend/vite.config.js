@@ -23,8 +23,8 @@ export default defineConfig({
 			},
 			manifest: {
 				display: "standalone",
-				name: "Pivot",
-				short_name: "Pivot",
+				name: "TurboTracker",
+				short_name: "TurboTracker",
 				start_url: "/hrms",
 				description: "Everyday HR & Payroll operations at your fingertips",
 				theme_color: "#ffffff",
