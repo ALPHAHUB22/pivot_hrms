@@ -7,7 +7,7 @@
 				</Button>
 				<div v-if="id" class="flex flex-row items-center gap-2 overflow-hidden grow">
 					<h2 class="text-xl font-semibold text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis">
-						{{ doctype }}
+						Item
 					</h2>
 					<Badge :label="id" class="whitespace-nowrap text-[8px]" variant="outline" />
 					<Badge v-if="status" :label="status" :theme="statusColor" class="whitespace-nowrap text-[8px]" />
@@ -26,7 +26,7 @@
 						}" />
 				</div>
 				<h2 v-else class="text-2xl font-semibold text-gray-900">
-					{{ `New ${doctype}` }}
+					{{ `New Item` }}
 				</h2>
 			</header>
 
@@ -423,7 +423,7 @@ const docList = createListResource({
 		async onSuccess(data) {
 			toast({
 				title: "Success",
-				text: `${props.doctype} created successfully!`,
+				text: `Item created successfully!`,
 				icon: "check-circle",
 				position: "bottom-center",
 				iconClasses: "text-green-500",
@@ -440,12 +440,11 @@ const docList = createListResource({
 		onError() {
 			toast({
 				title: "Error",
-				text: `Error creating ${props.doctype}`,
+				text: `Error creating Item`,
 				icon: "alert-circle",
 				position: "bottom-center",
 				iconClasses: "text-red-500",
 			})
-			console.log(`Error creating ${props.doctype}`)
 		},
 	},
 })
@@ -458,7 +457,7 @@ const documentResource = createDocumentResource({
 		onSuccess() {
 			toast({
 				title: "Success",
-				text: `${props.doctype} updated successfully!`,
+				text: `Item updated successfully!`,
 				icon: "check-circle",
 				position: "bottom-center",
 				iconClasses: "text-green-500",
@@ -467,12 +466,11 @@ const documentResource = createDocumentResource({
 		onError() {
 			toast({
 				title: "Error",
-				text: `Error updating ${props.doctype}`,
+				text: `Error updating Item`,
 				icon: "alert-circle",
 				position: "bottom-center",
 				iconClasses: "text-red-500",
 			})
-			console.log(`Error updating ${props.doctype}`)
 		},
 	},
 	delete: {
@@ -480,7 +478,7 @@ const documentResource = createDocumentResource({
 			router.back()
 			toast({
 				title: "Success",
-				text: `${props.doctype} deleted successfully!`,
+				text: `Item deleted successfully!`,
 				icon: "check-circle",
 				position: "bottom-center",
 				iconClasses: "text-green-500",
@@ -489,12 +487,11 @@ const documentResource = createDocumentResource({
 		onError() {
 			toast({
 				title: "Error",
-				text: `Error deleting ${props.doctype}`,
+				text: `Error deleting Item`,
 				icon: "alert-circle",
 				position: "bottom-center",
 				iconClasses: "text-red-500",
 			})
-			console.log(`Error deleting ${props.doctype}`)
 		},
 	},
 })
@@ -586,7 +583,7 @@ async function handleDocUpdate(action) {
 		await documentResource.get.promise
 		toast({
 			title: "Success",
-			text: `${props.doctype} updated successfully!`,
+			text: `Item updated successfully!`,
 			icon: "check-circle",
 			position: "bottom-center",
 			iconClasses: "text-green-500",

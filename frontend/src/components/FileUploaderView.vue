@@ -16,7 +16,7 @@
 					ref="input"
 					type="file"
 					multiple
-					accept=".png, .jpg, .jpeg"
+					accept="*"
 					@change="(e) => emit('handle-file-select', e)"
 				/>
 			</div>
