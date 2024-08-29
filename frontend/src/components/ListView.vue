@@ -234,7 +234,10 @@ const filterSchema = [
 		label: 'Building',
 		fieldname: 'building',
 		fieldtype: 'Link',
-		options: 'Warehouse'
+		options: 'Warehouse',
+		filter: {
+			"custom_is_building": ["=", 1]
+		}
 	}
 ]
 

@@ -683,10 +683,10 @@ const isFormReady = computed(() => {
 onMounted(async () => {
 	props.fields.map(function(value, key) {
 		if (value.fieldname === "building"){
-			value.linkFilters = {"is_group": 1}
+			value.linkFilters = {"custom_is_building": 1}
 		}
 		if (value.fieldname === "floor"){
-			value.linkFilters = {"is_group": 0}
+			value.linkFilters = {"custom_is_floor": 1}
 		}
 	});
 	if (props.id) {

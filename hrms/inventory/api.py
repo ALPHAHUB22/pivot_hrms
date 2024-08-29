@@ -31,7 +31,8 @@ def get_filter_values(filterSchema):
     for filter in filterSchema:
         if filter.get("fieldtype") == "Link":
             filter_name = filter.get("filterfieldname") or "name"
-            doc = frappe.db.get_all(filter.get("options"), fields = filter_name, pluck=filter_name)
+            filters = filter.get("filter") or {}
+            doc = frappe.db.get_all(filter.get("options"), filters=filters, fields = filter_name, pluck=filter_name)
             filter_values.append({
                 "fieldname" : filter.get("fieldname"),
                 "values" : doc
