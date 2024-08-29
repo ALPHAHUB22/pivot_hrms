@@ -506,8 +506,6 @@ const permittedWriteFields = createResource({
 	params: { doctype: props.doctype },
 })
 
-console.log([props.id, "KKKKK"])
-
 const formButton = computed(() => {
 	if (!props.showFormButton) return
 
